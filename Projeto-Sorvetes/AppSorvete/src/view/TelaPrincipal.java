@@ -58,6 +58,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGap(0, 279, Short.MAX_VALUE)
         );
 
+        menuModulos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/application.png"))); // NOI18N
         menuModulos.setText("Módulos");
 
         itemCadastrarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/user.png"))); // NOI18N
