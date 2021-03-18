@@ -35,6 +35,8 @@ public class TelaCadastroSorvete extends javax.swing.JInternalFrame {
         lblPreco = new javax.swing.JLabel();
         txtPreco = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
+        lblQuantidade = new javax.swing.JLabel();
+        txtQuantidade = new javax.swing.JTextField();
 
         setClosable(true);
         setTitle("Cadastro Sorvetes");
@@ -45,6 +47,8 @@ public class TelaCadastroSorvete extends javax.swing.JInternalFrame {
 
         btnSalvar.setText("Salvar");
 
+        lblQuantidade.setText("Quantidade:");
+
         javax.swing.GroupLayout jPanelCadastroSorvetesLayout = new javax.swing.GroupLayout(jPanelCadastroSorvetes);
         jPanelCadastroSorvetes.setLayout(jPanelCadastroSorvetesLayout);
         jPanelCadastroSorvetesLayout.setHorizontalGroup(
@@ -53,14 +57,16 @@ public class TelaCadastroSorvete extends javax.swing.JInternalFrame {
                 .addGap(22, 22, 22)
                 .addGroup(jPanelCadastroSorvetesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelCadastroSorvetesLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSalvar))
                     .addGroup(jPanelCadastroSorvetesLayout.createSequentialGroup()
                         .addGroup(jPanelCadastroSorvetesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblQuantidade)
                             .addComponent(lblPreco)
                             .addComponent(lblDescricao)
                             .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 80, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -71,13 +77,21 @@ public class TelaCadastroSorvete extends javax.swing.JInternalFrame {
                 .addComponent(lblDescricao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblPreco)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblQuantidade)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addComponent(btnSalvar)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblPreco)
+                .addGroup(jPanelCadastroSorvetesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelCadastroSorvetesLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addComponent(btnSalvar)
+                        .addContainerGap())
+                    .addGroup(jPanelCadastroSorvetesLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -93,7 +107,7 @@ public class TelaCadastroSorvete extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanelCadastroSorvetes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -105,7 +119,9 @@ public class TelaCadastroSorvete extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanelCadastroSorvetes;
     private javax.swing.JLabel lblDescricao;
     private javax.swing.JLabel lblPreco;
+    private javax.swing.JLabel lblQuantidade;
     private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtPreco;
+    private javax.swing.JTextField txtQuantidade;
     // End of variables declaration//GEN-END:variables
 }
