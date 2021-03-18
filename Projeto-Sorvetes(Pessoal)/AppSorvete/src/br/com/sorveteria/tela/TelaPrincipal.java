@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.sorveteria.tela;
 
 import java.awt.Desktop;
@@ -58,10 +53,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGap(0, 279, Short.MAX_VALUE)
         );
 
-        menuModulos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/application.png"))); // NOI18N
+        menuModulos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sorveteria/imagens/application.png"))); // NOI18N
         menuModulos.setText("Módulos");
 
-        itemCadastrarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/user.png"))); // NOI18N
+        itemCadastrarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sorveteria/imagens/user.png"))); // NOI18N
         itemCadastrarCliente.setText("Cadastrar Cliente");
         itemCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,7 +86,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuVendasSorvete.add(menuModulos);
 
-        menuRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/page.png"))); // NOI18N
+        menuRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sorveteria/imagens/page.png"))); // NOI18N
         menuRelatorio.setText("Relatórios");
 
         itemMenuRelatorioClientes.setText("Sorvetes");
@@ -164,9 +159,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TelaCadastroSetor telaCadSetor = new TelaCadastroSetor();
         jDesktopPane1.add(telaCadSetor);
         telaCadSetor.setVisible(true);
-        telaCadSetor.setPosicao();
-        
-        
+        telaCadSetor.setPosicao();    
     }//GEN-LAST:event_itemCadastrarSetorActionPerformed
 
     /**
