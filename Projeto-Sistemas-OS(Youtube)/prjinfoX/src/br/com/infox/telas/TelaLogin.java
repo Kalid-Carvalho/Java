@@ -1,21 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.infox.telas;
 
-/**
- *
- * @author KCSilva
- */
+import java.sql.*;
+import br.com.infox.dal.ModuloConexao;
+
 public class TelaLogin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaLogin
-     */
+    Connection conexao = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+    
     public TelaLogin() {
         initComponents();
+        conexao = ModuloConexao.conector();
+        System.out.println(conexao);
     }
 
     /**
