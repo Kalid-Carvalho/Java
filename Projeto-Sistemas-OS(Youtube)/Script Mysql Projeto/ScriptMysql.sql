@@ -41,4 +41,13 @@ create table tbos(
     foreign key(id_clientes) references tbclientes(id_clientes)
 );
 
+-- o código abaixo trás informações de duas tabelas
+select
+O.os,equipamento,defeito,servico,valor,
+C.nome_cliente,fone_cliente 
+from tbos as O
+inner join tbclientes as C
+on(O.id_clientes = C.id_clientes);
+
+
 
