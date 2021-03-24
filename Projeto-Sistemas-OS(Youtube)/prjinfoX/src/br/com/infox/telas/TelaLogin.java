@@ -24,6 +24,9 @@ public class TelaLogin extends javax.swing.JFrame {
                 //Mostrando tela principal caso o usuario e a senha esteja correto
                 TelaPrincipal principal = new TelaPrincipal();
                 principal.setVisible(true);
+                //Fechando tela de login apos o login ser concluido com sucesso.
+                this.dispose();
+                conexao.close();
                 
             }else{
                 JOptionPane.showMessageDialog(null, "Usuario e/ou senha invalido.");
@@ -105,9 +108,9 @@ public class TelaLogin extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogin)
-                    .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLogin))
                 .addGap(17, 17, 17))
         );
 

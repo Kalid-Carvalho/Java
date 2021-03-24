@@ -37,8 +37,9 @@ public class TelaCadastroSetor extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
 
         setClosable(true);
+        setTitle("Cadastro Setor");
 
-        lblCod_Setor.setText("Cod_Setor:");
+        lblCod_Setor.setText("Código do setor:");
 
         txtCodSetor.setEditable(false);
 
@@ -53,9 +54,8 @@ public class TelaCadastroSetor extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCadastroSetorLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelCadastroSetorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelCadastroSetorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addComponent(lblCod_Setor))
+                    .addComponent(jLabel1)
+                    .addComponent(lblCod_Setor)
                     .addGroup(jPanelCadastroSetorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelCadastroSetorLayout.createSequentialGroup()
                             .addComponent(txtCodSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)

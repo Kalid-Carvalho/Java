@@ -30,36 +30,43 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         menuVendasSorvete = new javax.swing.JMenuBar();
         menuModulos = new javax.swing.JMenu();
         itemCadastrarCliente = new javax.swing.JMenuItem();
         itemCadastrarSorvete = new javax.swing.JMenuItem();
         itemCadastrarSetor = new javax.swing.JMenuItem();
         itemVenderSorvetes = new javax.swing.JMenuItem();
-        menuRelatorio = new javax.swing.JMenu();
-        itemMenuRelatorioClientes = new javax.swing.JMenu();
-        itemRelatorioVendasClientes = new javax.swing.JMenuItem();
-        itemRelatorioVendasSorvetes = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Sorveteria");
+        setTitle("Sorveteria - Tela Principal");
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 609, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setText("Usuário");
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel2.setText("Data");
 
         menuModulos.setText("Módulos");
 
+        itemCadastrarCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
         itemCadastrarCliente.setText("Cadastrar Cliente");
         itemCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,6 +75,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuModulos.add(itemCadastrarCliente);
 
+        itemCadastrarSorvete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         itemCadastrarSorvete.setText("Cadastrar Sorvete");
         itemCadastrarSorvete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,6 +84,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuModulos.add(itemCadastrarSorvete);
 
+        itemCadastrarSetor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
         itemCadastrarSetor.setText("Cadastrar Setor");
         itemCadastrarSetor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,36 +93,35 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuModulos.add(itemCadastrarSetor);
 
+        itemVenderSorvetes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, java.awt.event.InputEvent.SHIFT_MASK));
         itemVenderSorvetes.setText("Vender Sorvete");
         menuModulos.add(itemVenderSorvetes);
 
         menuVendasSorvete.add(menuModulos);
 
-        menuRelatorio.setText("Relatórios");
+        jMenu1.setText("Relatórios");
 
-        itemMenuRelatorioClientes.setText("Sorvetes");
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem2.setText("Sorvetes");
+        jMenu1.add(jMenuItem2);
 
-        itemRelatorioVendasClientes.setText("Relatório Vendas Sorvetes");
-        itemMenuRelatorioClientes.add(itemRelatorioVendasClientes);
-        itemMenuRelatorioClientes.add(itemRelatorioVendasSorvetes);
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem4.setText("Clientes");
+        jMenu1.add(jMenuItem4);
 
-        menuRelatorio.add(itemMenuRelatorioClientes);
+        menuVendasSorvete.add(jMenu1);
 
-        jMenu2.setText("Clientes");
-
-        jMenuItem3.setText("Relatório Vendas Clientes");
-        jMenu2.add(jMenuItem3);
-
-        menuRelatorio.add(jMenu2);
-
-        menuVendasSorvete.add(menuRelatorio);
-
-        menuSair.setText("Sair");
+        menuSair.setText("Opções");
         menuSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuSairActionPerformed(evt);
             }
         });
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem1.setText("Sair");
+        menuSair.add(jMenuItem1);
+
         menuVendasSorvete.add(menuSair);
 
         setJMenuBar(menuVendasSorvete);
@@ -122,14 +130,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addContainerGap(399, Short.MAX_VALUE))
             .addComponent(jDesktopPane1)
         );
 
-        pack();
+        setSize(new java.awt.Dimension(764, 606));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -205,15 +225,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemCadastrarCliente;
     private javax.swing.JMenuItem itemCadastrarSetor;
     private javax.swing.JMenuItem itemCadastrarSorvete;
-    private javax.swing.JMenu itemMenuRelatorioClientes;
-    private javax.swing.JMenuItem itemRelatorioVendasClientes;
-    private javax.swing.JMenuItem itemRelatorioVendasSorvetes;
     private javax.swing.JMenuItem itemVenderSorvetes;
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenu menuModulos;
-    private javax.swing.JMenu menuRelatorio;
     private javax.swing.JMenu menuSair;
     private javax.swing.JMenuBar menuVendasSorvete;
     // End of variables declaration//GEN-END:variables
