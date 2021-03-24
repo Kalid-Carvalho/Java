@@ -33,11 +33,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         menuVendasSorvete = new javax.swing.JMenuBar();
-        menuModulos = new javax.swing.JMenu();
-        itemCadastrarCliente = new javax.swing.JMenuItem();
-        itemCadastrarSorvete = new javax.swing.JMenuItem();
-        itemCadastrarSetor = new javax.swing.JMenuItem();
-        itemVenderSorvetes = new javax.swing.JMenuItem();
+        menModulo = new javax.swing.JMenu();
+        menModuloCadastrarCliente = new javax.swing.JMenuItem();
+        menModuloCadastrarSorvete = new javax.swing.JMenuItem();
+        menModuloCadastrarSetor = new javax.swing.JMenuItem();
+        menModuloVenderSorvetes = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -64,40 +64,40 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel2.setText("Data");
 
-        menuModulos.setText("Módulos");
+        menModulo.setText("Módulo");
 
-        itemCadastrarCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
-        itemCadastrarCliente.setText("Cadastrar Cliente");
-        itemCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
+        menModuloCadastrarCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
+        menModuloCadastrarCliente.setText("Cadastrar Cliente");
+        menModuloCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemCadastrarClienteActionPerformed(evt);
+                menModuloCadastrarClienteActionPerformed(evt);
             }
         });
-        menuModulos.add(itemCadastrarCliente);
+        menModulo.add(menModuloCadastrarCliente);
 
-        itemCadastrarSorvete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
-        itemCadastrarSorvete.setText("Cadastrar Sorvete");
-        itemCadastrarSorvete.addActionListener(new java.awt.event.ActionListener() {
+        menModuloCadastrarSorvete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
+        menModuloCadastrarSorvete.setText("Cadastrar Sorvete");
+        menModuloCadastrarSorvete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemCadastrarSorveteActionPerformed(evt);
+                menModuloCadastrarSorveteActionPerformed(evt);
             }
         });
-        menuModulos.add(itemCadastrarSorvete);
+        menModulo.add(menModuloCadastrarSorvete);
 
-        itemCadastrarSetor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
-        itemCadastrarSetor.setText("Cadastrar Setor");
-        itemCadastrarSetor.addActionListener(new java.awt.event.ActionListener() {
+        menModuloCadastrarSetor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
+        menModuloCadastrarSetor.setText("Cadastrar Setor");
+        menModuloCadastrarSetor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemCadastrarSetorActionPerformed(evt);
+                menModuloCadastrarSetorActionPerformed(evt);
             }
         });
-        menuModulos.add(itemCadastrarSetor);
+        menModulo.add(menModuloCadastrarSetor);
 
-        itemVenderSorvetes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, java.awt.event.InputEvent.SHIFT_MASK));
-        itemVenderSorvetes.setText("Vender Sorvete");
-        menuModulos.add(itemVenderSorvetes);
+        menModuloVenderSorvetes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, java.awt.event.InputEvent.SHIFT_MASK));
+        menModuloVenderSorvetes.setText("Vender Sorvete");
+        menModulo.add(menModuloVenderSorvetes);
 
-        menuVendasSorvete.add(menuModulos);
+        menuVendasSorvete.add(menModulo);
 
         jMenu1.setText("Relatórios");
 
@@ -135,7 +135,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                 .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
@@ -145,15 +145,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addContainerGap(399, Short.MAX_VALUE))
+                .addContainerGap(351, Short.MAX_VALUE))
             .addComponent(jDesktopPane1)
         );
 
-        setSize(new java.awt.Dimension(764, 606));
+        setSize(new java.awt.Dimension(805, 558));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void itemCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastrarClienteActionPerformed
+    private void menModuloCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menModuloCadastrarClienteActionPerformed
         // Criando variavel de referencia telaCadUser
         TelaCadastroCliente telaCadUser = new TelaCadastroCliente();
         // Adicionando telaCadUser ao Painel da area de trabalho
@@ -162,28 +162,28 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaCadUser.setVisible(true);
         // Invocando Método para centralizar MDI
         telaCadUser.setPosicao();
-    }//GEN-LAST:event_itemCadastrarClienteActionPerformed
+    }//GEN-LAST:event_menModuloCadastrarClienteActionPerformed
 
-    private void itemCadastrarSorveteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastrarSorveteActionPerformed
+    private void menModuloCadastrarSorveteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menModuloCadastrarSorveteActionPerformed
         TelaCadastroSorvete telaCadSorvete = new TelaCadastroSorvete();
         jDesktopPane1.add(telaCadSorvete);
         telaCadSorvete.setVisible(true);
         telaCadSorvete.setPosicao();
         
-    }//GEN-LAST:event_itemCadastrarSorveteActionPerformed
+    }//GEN-LAST:event_menModuloCadastrarSorveteActionPerformed
 
     private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSairActionPerformed
 
     }//GEN-LAST:event_menuSairActionPerformed
 
-    private void itemCadastrarSetorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastrarSetorActionPerformed
+    private void menModuloCadastrarSetorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menModuloCadastrarSetorActionPerformed
         TelaCadastroSetor telaCadSetor = new TelaCadastroSetor();
         jDesktopPane1.add(telaCadSetor);
         telaCadSetor.setVisible(true);
         telaCadSetor.setPosicao();
         
         
-    }//GEN-LAST:event_itemCadastrarSetorActionPerformed
+    }//GEN-LAST:event_menModuloCadastrarSetorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -222,10 +222,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem itemCadastrarCliente;
-    private javax.swing.JMenuItem itemCadastrarSetor;
-    private javax.swing.JMenuItem itemCadastrarSorvete;
-    private javax.swing.JMenuItem itemVenderSorvetes;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -233,7 +229,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenu menuModulos;
+    private javax.swing.JMenu menModulo;
+    private javax.swing.JMenuItem menModuloCadastrarCliente;
+    private javax.swing.JMenuItem menModuloCadastrarSetor;
+    private javax.swing.JMenuItem menModuloCadastrarSorvete;
+    private javax.swing.JMenuItem menModuloVenderSorvetes;
     private javax.swing.JMenu menuSair;
     private javax.swing.JMenuBar menuVendasSorvete;
     // End of variables declaration//GEN-END:variables
