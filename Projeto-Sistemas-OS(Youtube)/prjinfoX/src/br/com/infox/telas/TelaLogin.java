@@ -9,8 +9,8 @@ public class TelaLogin extends javax.swing.JFrame {
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-    
-    public void logar(){
+
+    public void logar() {
         String sql = "select * from tbusuarios where login =? and senha =?";
         try {
             // as linhas abaixo preparam a consulta ao banco em função do que foi digitado nas caixas de texto
@@ -20,41 +20,52 @@ public class TelaLogin extends javax.swing.JFrame {
             //a linha abaixo executa a query
             rs = pst.executeQuery();
             //se existir usuario e senha correspondente
-            if(rs.next()){
+            if (rs.next()) {
                 //a linha abaixo obtém o conteudo do campo perfil da tabela tbusuarios;
                 String perfil = rs.getString(6);
                 //System.out.println(perfil);
                 //A estrutura abaixo faz o tratamento do perfil do usuário
-                if(perfil.equals("admin")){
-                //Mostrando tela principal caso o usuario e a senha esteja correto
-                TelaPrincipal principal = new TelaPrincipal();
-                principal.setVisible(true);
-                //Fechando tela de login apos o login ser concluido com sucesso.
-                TelaPrincipal.menCadastroUsuario.setEnabled(true);
-                TelaPrincipal.menRelatorioServicos.setEnabled(true);
+                if (perfil.equals("admin")) {
+                    //Mostrando tela principal caso o usuario e a senha esteja correto
+                    TelaPrincipal principal = new TelaPrincipal();
+                    principal.setVisible(true);
+                    //Habilitando a tela de cadastro de usuario e a tela de exibir relatórios caso
+                    TelaPrincipal.menCadastroUsuario.setEnabled(true);
+                    TelaPrincipal.menRelatorioServicos.setEnabled(true);
+                    //Mostrar nome de usuário 
+                    TelaPrincipal.lblUsuario.setText(rs.getString(2));
+                    //Fechando tela de login apos o login ser concluido com sucesso.
+                    this.dispose();
+                }else{
+                    //Mostrando tela principal caso o usuario e a senha esteja correto
+                    TelaPrincipal principal = new TelaPrincipal();
+                    //Mostrar nome de usuário 
+                    TelaPrincipal.lblUsuario.setText(rs.getString(2));
+                    principal.setVisible(true);
+                    this.dispose();
                 }
-                this.dispose();
                 conexao.close();
-                
-            }else{
+
+            } else {
                 JOptionPane.showMessageDialog(null, "Usuario e/ou senha invalido.");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
+
     public TelaLogin() {
         initComponents();
         conexao = ModuloConexao.conector();
         //serve de apoio para status de conexão
         //System.out.println(conexao);
-        if(conexao != null){
+        if (conexao != null) {
             lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/database_connect.png")));
-        }else{
+        } else {
             lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/database_error.´ng")));
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
