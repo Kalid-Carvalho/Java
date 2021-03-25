@@ -9,7 +9,7 @@ public class ModuloConexao {
         //a linha abaixo chama o driver importado em biblotecas
         String driver = "com.mysql.jdbc.Driver";
         // criando variaveis para armazenar informações referente ao banco
-        String url = "jdbc:mysql://localhost:3306/dbinfox";
+        String url = "jdbc:mysql://localhost:3306/dbinfox?autoReconnect=true&useSSL=false";
         String user = "root";
         String password = "root";   
         // estabelecendo conexão com o banco de dados

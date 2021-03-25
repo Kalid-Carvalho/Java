@@ -43,8 +43,7 @@ public class TelaLogin extends javax.swing.JFrame {
             lblStatus.setText("Conectado");
         }else{
             lblStatus.setText("Não conectado.");
-        }
-        System.out.println(conexao);
+        }    
         
     }
     @SuppressWarnings("unchecked")
@@ -111,10 +110,10 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin)
                     .addComponent(lblStatus))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(372, 223));
+        setSize(new java.awt.Dimension(372, 215));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

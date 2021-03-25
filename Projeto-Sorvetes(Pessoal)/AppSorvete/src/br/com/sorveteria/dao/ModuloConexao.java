@@ -10,7 +10,7 @@ public class ModuloConexao {
         //a linha abaixo chama o driver importado em biblotecas
         String driver = "com.mysql.jdbc.Driver";
         // criando variaveis para armazenar informações referente ao banco
-        String url = "jdbc:mysql://localhost:3306/sorveteria";
+        String url = "jdbc:mysql://localhost:3306/sorveteria?autoReconnect=true&useSSL=false";
         //criando variavel que armazena login do banco de dados
         String user = "root";
         //Variavel que armazena senha do banco de dados

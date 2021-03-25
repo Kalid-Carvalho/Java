@@ -7,7 +7,10 @@ package br.com.sorveteria.tela;
 
 import java.awt.Desktop;
 import java.awt.Dimension;
+import java.text.DateFormat;
+import java.util.Date;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,7 +18,6 @@ import javax.swing.JInternalFrame;
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
-   
     public TelaPrincipal() {
         initComponents();
     }
@@ -30,22 +32,29 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
+        lblData = new javax.swing.JLabel();
         menuVendasSorvete = new javax.swing.JMenuBar();
         menModulo = new javax.swing.JMenu();
         menModuloCadastrarCliente = new javax.swing.JMenuItem();
         menModuloCadastrarSorvete = new javax.swing.JMenuItem();
         menModuloCadastrarSetor = new javax.swing.JMenuItem();
         menModuloVenderSorvetes = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        menuSair = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        menRelatorio = new javax.swing.JMenu();
+        menRelatorioSorvete = new javax.swing.JMenuItem();
+        menRelatorioCliente = new javax.swing.JMenuItem();
+        menAjuda = new javax.swing.JMenu();
+        menAjudaSobre = new javax.swing.JMenuItem();
+        menOpcoes = new javax.swing.JMenu();
+        menOpcoesSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sorveteria - Tela Principal");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -58,11 +67,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel1.setText("Usuário");
+        lblUsuario.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblUsuario.setText("Usuário");
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel2.setText("Data");
+        lblData.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        lblData.setText("Data");
 
         menModulo.setText("Módulo");
 
@@ -99,30 +108,41 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuVendasSorvete.add(menModulo);
 
-        jMenu1.setText("Relatórios");
+        menRelatorio.setText("Relatório");
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem2.setText("Sorvetes");
-        jMenu1.add(jMenuItem2);
+        menRelatorioSorvete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.ALT_MASK));
+        menRelatorioSorvete.setText("Sorvete");
+        menRelatorio.add(menRelatorioSorvete);
 
-        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem4.setText("Clientes");
-        jMenu1.add(jMenuItem4);
-
-        menuVendasSorvete.add(jMenu1);
-
-        menuSair.setText("Opções");
-        menuSair.addActionListener(new java.awt.event.ActionListener() {
+        menRelatorioCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, java.awt.event.InputEvent.ALT_MASK));
+        menRelatorioCliente.setText("Cliente");
+        menRelatorioCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuSairActionPerformed(evt);
+                menRelatorioClienteActionPerformed(evt);
             }
         });
+        menRelatorio.add(menRelatorioCliente);
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem1.setText("Sair");
-        menuSair.add(jMenuItem1);
+        menuVendasSorvete.add(menRelatorio);
 
-        menuVendasSorvete.add(menuSair);
+        menAjuda.setText("Ajuda");
+
+        menAjudaSobre.setText("Sobre");
+        menAjuda.add(menAjudaSobre);
+
+        menuVendasSorvete.add(menAjuda);
+
+        menOpcoes.setText("Opções");
+
+        menOpcoesSair.setText("Sair");
+        menOpcoesSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menOpcoesSairActionPerformed(evt);
+            }
+        });
+        menOpcoes.add(menOpcoesSair);
+
+        menuVendasSorvete.add(menOpcoes);
 
         setJMenuBar(menuVendasSorvete);
 
@@ -133,8 +153,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(lblUsuario)
+                    .addComponent(lblData))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                 .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -142,9 +162,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(71, 71, 71)
-                .addComponent(jLabel1)
+                .addComponent(lblUsuario)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                .addComponent(lblData)
                 .addContainerGap(351, Short.MAX_VALUE))
             .addComponent(jDesktopPane1)
         );
@@ -169,21 +189,36 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesktopPane1.add(telaCadSorvete);
         telaCadSorvete.setVisible(true);
         telaCadSorvete.setPosicao();
-        
+
     }//GEN-LAST:event_menModuloCadastrarSorveteActionPerformed
-
-    private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSairActionPerformed
-
-    }//GEN-LAST:event_menuSairActionPerformed
 
     private void menModuloCadastrarSetorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menModuloCadastrarSetorActionPerformed
         TelaCadastroSetor telaCadSetor = new TelaCadastroSetor();
         jDesktopPane1.add(telaCadSetor);
         telaCadSetor.setVisible(true);
         telaCadSetor.setPosicao();
-        
-        
+
+
     }//GEN-LAST:event_menModuloCadastrarSetorActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        //Botando data para aparecer automatico quando iniciar o sistema
+        Date data = new Date();
+        DateFormat formatador = DateFormat.getDateInstance(DateFormat.SHORT);
+        lblData.setText(formatador.format(data));
+    }//GEN-LAST:event_formWindowActivated
+
+    private void menRelatorioClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menRelatorioClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menRelatorioClienteActionPerformed
+
+    private void menOpcoesSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menOpcoesSairActionPerformed
+        //Exibe uma caixa de diálogo
+        int sair = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair?", "Atenção !", JOptionPane.YES_NO_OPTION);
+        if (sair == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_menOpcoesSairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,18 +258,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JLabel lblData;
+    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JMenu menAjuda;
+    private javax.swing.JMenuItem menAjudaSobre;
     private javax.swing.JMenu menModulo;
     private javax.swing.JMenuItem menModuloCadastrarCliente;
     private javax.swing.JMenuItem menModuloCadastrarSetor;
     private javax.swing.JMenuItem menModuloCadastrarSorvete;
     private javax.swing.JMenuItem menModuloVenderSorvetes;
-    private javax.swing.JMenu menuSair;
+    private javax.swing.JMenu menOpcoes;
+    private javax.swing.JMenuItem menOpcoesSair;
+    private javax.swing.JMenu menRelatorio;
+    private javax.swing.JMenuItem menRelatorioCliente;
+    private javax.swing.JMenuItem menRelatorioSorvete;
     private javax.swing.JMenuBar menuVendasSorvete;
     // End of variables declaration//GEN-END:variables
 }
