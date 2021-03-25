@@ -5,12 +5,12 @@ import br.com.sorveteria.dao.ModuloConexao;
 import javax.swing.JOptionPane;
 
 public class TelaLogin extends javax.swing.JFrame {
-    
+
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-    
-    public void logar(){
+
+    public void logar() {
         try {
             //Criando query para verificar no banco de dados se existe login e senhas digitados na interface grafica
             String sql = "select * from tb_usuarios where login=? and senha=?";
@@ -20,32 +20,56 @@ public class TelaLogin extends javax.swing.JFrame {
             pst.setString(2, txtSenha.getText());
             //Comando que executa a query completa.
             rs = pst.executeQuery();
-            if(rs.next()){
-                TelaPrincipal principal = new TelaPrincipal();
-                principal.setVisible(true);
-                this.dispose();
+            if (rs.next()) {
+                //a linha abaixo obtém o conteudo do campo perfil da tabela tb_usuarios;
+                String perfil = rs.getString(5);
+                //System.out.println(perfil);
+                //A estrutura abaixo faz o tratamento do perfil do usuário
+                if (perfil.equals("admin")) {
+                    //Mostrando tela principal caso o usuario e a senha esteja correto
+                    TelaPrincipal principal = new TelaPrincipal();
+                    principal.setVisible(true);
+                    //Habilitando módulos que so estaram disponiveis caso o usuário que logar for administrador
+                    TelaPrincipal.menModuloCadastrarSorvete.setEnabled(true);
+                    TelaPrincipal.menModuloCadastroUsuario.setEnabled(true);
+                    TelaPrincipal.menRelatorioCliente.setEnabled(true);
+                    TelaPrincipal.menRelatorioSorvete.setEnabled(true);
+                    //Mostrar nome de usuário 
+                    TelaPrincipal.lblUsuario.setText(rs.getString(2));
+                    //fechando a tela de login
+                    this.dispose();
+                } else {
+                    //Mostrando tela principal sem algumas funções de administrador.
+                    TelaPrincipal principal = new TelaPrincipal();
+                    //Mostrar nome de usuário 
+                    TelaPrincipal.lblUsuario.setText(rs.getString(2));
+                    principal.setVisible(true);
+                    this.dispose();
+                }
+
                 conexao.close();
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Usuario e/ou senha incorreto.");
             }
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
+
     public TelaLogin() {
         initComponents();
-        
+
         conexao = ModuloConexao.conector();
-        
-        if(conexao != null){
+
+        if (conexao != null) {
             lblStatus.setText("Conectado");
-        }else{
+        } else {
             lblStatus.setText("Não conectado.");
-        }    
-        
+        }
+
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

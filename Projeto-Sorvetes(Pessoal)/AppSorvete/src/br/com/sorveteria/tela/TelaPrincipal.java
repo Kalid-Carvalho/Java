@@ -36,6 +36,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblData = new javax.swing.JLabel();
         menuVendasSorvete = new javax.swing.JMenuBar();
         menModulo = new javax.swing.JMenu();
+        menModuloCadastroUsuario = new javax.swing.JMenuItem();
         menModuloCadastrarCliente = new javax.swing.JMenuItem();
         menModuloCadastrarSorvete = new javax.swing.JMenuItem();
         menModuloCadastrarSetor = new javax.swing.JMenuItem();
@@ -56,15 +57,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jDesktopPane1.setPreferredSize(new java.awt.Dimension(610, 495));
+
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 609, Short.MAX_VALUE)
+            .addGap(0, 610, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 496, Short.MAX_VALUE)
         );
 
         lblUsuario.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -74,9 +77,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblData.setText("Data");
 
         menModulo.setText("Módulo");
+        menModulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menModuloActionPerformed(evt);
+            }
+        });
+
+        menModuloCadastroUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK));
+        menModuloCadastroUsuario.setText("Usuário");
+        menModuloCadastroUsuario.setEnabled(false);
+        menModuloCadastroUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menModuloCadastroUsuarioActionPerformed(evt);
+            }
+        });
+        menModulo.add(menModuloCadastroUsuario);
 
         menModuloCadastrarCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
-        menModuloCadastrarCliente.setText("Cadastrar Cliente");
+        menModuloCadastrarCliente.setText("Cliente");
         menModuloCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menModuloCadastrarClienteActionPerformed(evt);
@@ -85,7 +103,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menModulo.add(menModuloCadastrarCliente);
 
         menModuloCadastrarSorvete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
-        menModuloCadastrarSorvete.setText("Cadastrar Sorvete");
+        menModuloCadastrarSorvete.setText("Sorvete");
+        menModuloCadastrarSorvete.setEnabled(false);
         menModuloCadastrarSorvete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menModuloCadastrarSorveteActionPerformed(evt);
@@ -94,7 +113,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menModulo.add(menModuloCadastrarSorvete);
 
         menModuloCadastrarSetor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
-        menModuloCadastrarSetor.setText("Cadastrar Setor");
+        menModuloCadastrarSetor.setText("Setor");
         menModuloCadastrarSetor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menModuloCadastrarSetorActionPerformed(evt);
@@ -112,10 +131,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menRelatorioSorvete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.ALT_MASK));
         menRelatorioSorvete.setText("Sorvete");
+        menRelatorioSorvete.setEnabled(false);
         menRelatorio.add(menRelatorioSorvete);
 
         menRelatorioCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, java.awt.event.InputEvent.ALT_MASK));
         menRelatorioCliente.setText("Cliente");
+        menRelatorioCliente.setEnabled(false);
         menRelatorioCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menRelatorioClienteActionPerformed(evt);
@@ -128,6 +149,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menAjuda.setText("Ajuda");
 
         menAjudaSobre.setText("Sobre");
+        menAjudaSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menAjudaSobreActionPerformed(evt);
+            }
+        });
         menAjuda.add(menAjudaSobre);
 
         menuVendasSorvete.add(menAjuda);
@@ -150,23 +176,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblUsuario)
                     .addComponent(lblData))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 94, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
+                .addGap(47, 47, 47)
                 .addComponent(lblUsuario)
                 .addGap(18, 18, 18)
                 .addComponent(lblData)
-                .addContainerGap(351, Short.MAX_VALUE))
-            .addComponent(jDesktopPane1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(805, 558));
@@ -188,16 +214,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TelaCadastroSorvete telaCadSorvete = new TelaCadastroSorvete();
         jDesktopPane1.add(telaCadSorvete);
         telaCadSorvete.setVisible(true);
-        telaCadSorvete.setPosicao();
-
     }//GEN-LAST:event_menModuloCadastrarSorveteActionPerformed
 
     private void menModuloCadastrarSetorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menModuloCadastrarSetorActionPerformed
         TelaCadastroSetor telaCadSetor = new TelaCadastroSetor();
         jDesktopPane1.add(telaCadSetor);
-        telaCadSetor.setVisible(true);
-        telaCadSetor.setPosicao();
-
+        telaCadSetor.setVisible(true);   
 
     }//GEN-LAST:event_menModuloCadastrarSetorActionPerformed
 
@@ -219,6 +241,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_menOpcoesSairActionPerformed
+
+    private void menModuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menModuloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menModuloActionPerformed
+
+    private void menAjudaSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menAjudaSobreActionPerformed
+        TelaSobre sobre = new TelaSobre();
+        sobre.setVisible(true);
+    }//GEN-LAST:event_menAjudaSobreActionPerformed
+
+    private void menModuloCadastroUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menModuloCadastroUsuarioActionPerformed
+        TelaCadastroUsuario telaCadUser = new TelaCadastroUsuario();
+        telaCadUser.setVisible(true);
+        jDesktopPane1.add(telaCadUser);
+    }//GEN-LAST:event_menModuloCadastroUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -259,19 +296,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel lblData;
-    private javax.swing.JLabel lblUsuario;
+    public static javax.swing.JLabel lblUsuario;
     private javax.swing.JMenu menAjuda;
     private javax.swing.JMenuItem menAjudaSobre;
     private javax.swing.JMenu menModulo;
     private javax.swing.JMenuItem menModuloCadastrarCliente;
     private javax.swing.JMenuItem menModuloCadastrarSetor;
-    private javax.swing.JMenuItem menModuloCadastrarSorvete;
+    public static javax.swing.JMenuItem menModuloCadastrarSorvete;
+    public static javax.swing.JMenuItem menModuloCadastroUsuario;
     private javax.swing.JMenuItem menModuloVenderSorvetes;
     private javax.swing.JMenu menOpcoes;
     private javax.swing.JMenuItem menOpcoesSair;
     private javax.swing.JMenu menRelatorio;
-    private javax.swing.JMenuItem menRelatorioCliente;
-    private javax.swing.JMenuItem menRelatorioSorvete;
+    public static javax.swing.JMenuItem menRelatorioCliente;
+    public static javax.swing.JMenuItem menRelatorioSorvete;
     private javax.swing.JMenuBar menuVendasSorvete;
     // End of variables declaration//GEN-END:variables
 }
