@@ -139,7 +139,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         btnUsuExcluir.setPreferredSize(new java.awt.Dimension(80, 80));
 
         try {
-            txtUsuFone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+            txtUsuFone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## #####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
