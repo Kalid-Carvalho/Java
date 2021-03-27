@@ -39,7 +39,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menModuloCadastroUsuario = new javax.swing.JMenuItem();
         menModuloCadastrarCliente = new javax.swing.JMenuItem();
         menModuloCadastrarSorvete = new javax.swing.JMenuItem();
-        menModuloCadastrarSetor = new javax.swing.JMenuItem();
         menModuloVenderSorvetes = new javax.swing.JMenuItem();
         menRelatorio = new javax.swing.JMenu();
         menRelatorioSorvete = new javax.swing.JMenuItem();
@@ -111,15 +110,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         menModulo.add(menModuloCadastrarSorvete);
-
-        menModuloCadastrarSetor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
-        menModuloCadastrarSetor.setText("Setor");
-        menModuloCadastrarSetor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menModuloCadastrarSetorActionPerformed(evt);
-            }
-        });
-        menModulo.add(menModuloCadastrarSetor);
 
         menModuloVenderSorvetes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, java.awt.event.InputEvent.SHIFT_MASK));
         menModuloVenderSorvetes.setText("Vender Sorvete");
@@ -206,8 +196,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesktopPane1.add(telaCadUser);
         // Mostrando a tela de cadastro ao clicar em cadastrar cliente.
         telaCadUser.setVisible(true);
-        // Invocando Método para centralizar MDI
-        telaCadUser.setPosicao();
     }//GEN-LAST:event_menModuloCadastrarClienteActionPerformed
 
     private void menModuloCadastrarSorveteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menModuloCadastrarSorveteActionPerformed
@@ -215,13 +203,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesktopPane1.add(telaCadSorvete);
         telaCadSorvete.setVisible(true);
     }//GEN-LAST:event_menModuloCadastrarSorveteActionPerformed
-
-    private void menModuloCadastrarSetorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menModuloCadastrarSetorActionPerformed
-        TelaCadastroSetor telaCadSetor = new TelaCadastroSetor();
-        jDesktopPane1.add(telaCadSetor);
-        telaCadSetor.setVisible(true);   
-
-    }//GEN-LAST:event_menModuloCadastrarSetorActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         //Botando data para aparecer automatico quando iniciar o sistema
@@ -301,7 +282,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menAjudaSobre;
     private javax.swing.JMenu menModulo;
     private javax.swing.JMenuItem menModuloCadastrarCliente;
-    private javax.swing.JMenuItem menModuloCadastrarSetor;
     public static javax.swing.JMenuItem menModuloCadastrarSorvete;
     public static javax.swing.JMenuItem menModuloCadastroUsuario;
     private javax.swing.JMenuItem menModuloVenderSorvetes;

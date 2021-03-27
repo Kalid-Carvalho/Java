@@ -1,4 +1,4 @@
-package br.com.sorveteria.dao;
+package br.com.sorveteria.dal;
 
 import java.sql.*;
 

@@ -1,7 +1,7 @@
 package br.com.sorveteria.tela;
 
 import java.sql.*;
-import br.com.sorveteria.dao.ModuloConexao;
+import br.com.sorveteria.dal.ModuloConexao;
 import javax.swing.JOptionPane;
 
 public class TelaLogin extends javax.swing.JFrame {
