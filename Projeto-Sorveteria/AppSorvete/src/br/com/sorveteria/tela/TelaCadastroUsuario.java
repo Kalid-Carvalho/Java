@@ -22,6 +22,15 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
         conexao = ModuloConexao.conector();
     }
 
+    private void limpaTela() {
+        //as linhas abaixo "Limpam" os campos
+        txtUsuNome.setText(null);
+        txtUsuFone.setText(null);
+        txtUsuLogin.setText(null);
+        txtUsuSenha.setText(null);
+        cboUsuPerfil.setSelectedItem(null);
+    }
+
     private void consultar() {
         String sql = "Select * from tb_usuarios where id_usuario =?";
         try {
@@ -37,15 +46,40 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
                 txtUsuSenha.setText(rs.getString(4));
                 txtUsuFone.setText(rs.getString(6));
                 cboUsuPerfil.setSelectedItem(rs.getString(5));
+
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário não cadastrado !");
-                //as linhas abaixo "Limpam" os campos
-                txtUsuNome.setText(null);
-                txtUsuFone.setText(null);
-                txtUsuLogin.setText(null);
-                txtUsuSenha.setText(null);
-                cboUsuPerfil.setSelectedItem(null);
+                limpaTela();
             }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    private void adicionar() {
+        String sql = "INSERT INTO tb_usuarios(id_user,nome,login,senha,perfil,fone) VALUES(?,?,?,?,?,?)";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            // parametros( numero do campo na tabela que está sendo usada, conteudo que foi digitado)
+            pst.setString(1, txtUsuID.getText());
+            pst.setString(2, txtUsuNome.getText());
+            pst.setString(3, txtUsuLogin.getText());
+            pst.setString(4, txtUsuSenha.getText());
+            pst.setString(5, cboUsuPerfil.getSelectedItem().toString());
+            pst.setString(6, txtUsuFone.getText());
+            // A linha abaixo inseri no banco de dados os dados inseridos no formulario e retorna um numero(1 se inserção foi feita com sucesso ou 0 se não foi feita)
+            if ((txtUsuID.getText().isEmpty()) || ((txtUsuNome.getText().isEmpty()) || ((txtUsuLogin.getText().isEmpty()) || ((txtUsuSenha.getText().isEmpty()) {
+
+            } else {
+                int adicionado = pst.executeUpdate();
+                if (adicionado > 0) {
+                    JOptionPane.showMessageDialog(null, "Usuário adicionardo com sucesso !");
+                    limpaTela();
+                    btnUsuAdicionar.setEnabled(false);
+                }
+            }
+        
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -67,11 +101,12 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
         txtUsuSenha = new javax.swing.JPasswordField();
         cboUsuPerfil = new javax.swing.JComboBox<>();
         lblUsuFone = new javax.swing.JLabel();
-        txtUsuFone = new javax.swing.JTextField();
         btnUsuAdicionar = new javax.swing.JButton();
         btnUsuProcurar = new javax.swing.JButton();
         bntUsuAlterar = new javax.swing.JButton();
         btnUsuExcluir = new javax.swing.JButton();
+        txtUsuFone = new javax.swing.JFormattedTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -80,15 +115,15 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
 
         jPanel1.setPreferredSize(new java.awt.Dimension(610, 495));
 
-        lblUsuID.setText("ID: ");
+        lblUsuID.setText("*ID: ");
 
-        lblUsuNome.setText("Nome:");
+        lblUsuNome.setText("*Nome:");
 
-        lblUsuLogin.setText("Login: ");
+        lblUsuLogin.setText("*Login: ");
 
-        lblUsuSenha.setText("Senha: ");
+        lblUsuSenha.setText("*Senha: ");
 
-        lblUsuPerfil.setText("Perfil: ");
+        lblUsuPerfil.setText("*Perfil: ");
 
         cboUsuPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar", "admin", "user" }));
 
@@ -119,6 +154,14 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
         btnUsuExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUsuExcluir.setPreferredSize(new java.awt.Dimension(80, 80));
 
+        try {
+            txtUsuFone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## #####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jLabel1.setText("* Campos Obrigatórios");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -126,24 +169,21 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblUsuID)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtUsuID, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(lblUsuNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtUsuNome))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblUsuLogin)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtUsuLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblUsuFone)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtUsuFone)))
+                                .addGap(24, 24, 24)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtUsuLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUsuFone, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(31, 31, 31)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -153,7 +193,14 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblUsuSenha)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtUsuSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(txtUsuSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblUsuID)
+                        .addGap(31, 31, 31)
+                        .addComponent(txtUsuID, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)))
                 .addGap(69, 69, 69))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(53, 53, 53)
@@ -172,7 +219,8 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
                 .addGap(49, 49, 49)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUsuID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblUsuID))
+                    .addComponent(lblUsuID)
+                    .addComponent(jLabel1))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUsuNome)
@@ -228,6 +276,7 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnUsuExcluir;
     private javax.swing.JButton btnUsuProcurar;
     private javax.swing.JComboBox<String> cboUsuPerfil;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblUsuFone;
     private javax.swing.JLabel lblUsuID;
@@ -235,7 +284,7 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblUsuNome;
     private javax.swing.JLabel lblUsuPerfil;
     private javax.swing.JLabel lblUsuSenha;
-    private javax.swing.JTextField txtUsuFone;
+    private javax.swing.JFormattedTextField txtUsuFone;
     private javax.swing.JTextField txtUsuID;
     private javax.swing.JTextField txtUsuLogin;
     private javax.swing.JTextField txtUsuNome;
