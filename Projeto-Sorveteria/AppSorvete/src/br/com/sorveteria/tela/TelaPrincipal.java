@@ -62,7 +62,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblData.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblData.setText("Data");
 
-        menModulo.setText("Módulo");
+        menModulo.setText("Módulos");
         menModulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menModuloActionPerformed(evt);

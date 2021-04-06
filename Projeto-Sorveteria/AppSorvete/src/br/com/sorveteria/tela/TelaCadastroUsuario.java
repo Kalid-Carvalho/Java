@@ -24,6 +24,7 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
 
     private void limpaTela() {
         //as linhas abaixo "Limpam" os campos
+        txtUsuID.setText(null);
         txtUsuNome.setText(null);
         txtUsuFone.setText(null);
         txtUsuLogin.setText(null);
@@ -32,7 +33,7 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
     }
 
     private void consultar() {
-        String sql = "Select * from tb_usuarios where id_usuario =?";
+        String sql = "SELECT * FROM tb_usuarios where id_usuario =?";
         try {
             //setando a interrogação da query
             pst = conexao.prepareStatement(sql);
@@ -57,7 +58,7 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
     }
 
     private void adicionar() {
-        String sql = "INSERT INTO tb_usuarios(id_user,nome,login,senha,perfil,fone) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO tb_usuarios(id_usuario,nome,login,senha,perfil,fone) VALUES(?,?,?,?,?,?)";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -69,20 +70,77 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
             pst.setString(5, cboUsuPerfil.getSelectedItem().toString());
             pst.setString(6, txtUsuFone.getText());
             // A linha abaixo inseri no banco de dados os dados inseridos no formulario e retorna um numero(1 se inserção foi feita com sucesso ou 0 se não foi feita)
-            if ((txtUsuID.getText().isEmpty()) || ((txtUsuNome.getText().isEmpty()) || ((txtUsuLogin.getText().isEmpty()) || ((txtUsuSenha.getText().isEmpty()) {
-
+            if ((txtUsuID.getText().isEmpty()) || (txtUsuNome.getText().isEmpty()) || (txtUsuLogin.getText().isEmpty()) || (txtUsuSenha.getText().isEmpty())) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
             } else {
+                //As linhas abaixo atualiza a tabela tb_usuarios com os dados do usuário
+                //A estrutura abaixo é usada para confirmar alteração dos dados na tabela
                 int adicionado = pst.executeUpdate();
                 if (adicionado > 0) {
-                    JOptionPane.showMessageDialog(null, "Usuário adicionardo com sucesso !");
+                    JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso !");
                     limpaTela();
                     btnUsuAdicionar.setEnabled(false);
                 }
             }
-        
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+    }
+
+    private void alterar() {
+        String sql = "UPDATE tb_usuarios set nome=?,login=?,senha=?,perfil=?,fone=? where id_usuario=?";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+
+            //Coletando dados dousuário
+            pst.setString(1, txtUsuNome.getText());
+            pst.setString(2, txtUsuLogin.getText());
+            pst.setString(3, txtUsuSenha.getText());
+            pst.setString(4, cboUsuPerfil.getSelectedItem().toString());
+            pst.setString(5, txtUsuFone.getText());
+            pst.setString(6, txtUsuID.getText());
+
+            //Validando se campos obrigatórios estão digitados corretamente
+            if ((txtUsuID.getText().isEmpty()) || (txtUsuNome.getText().isEmpty()) || (txtUsuLogin.getText().isEmpty()) || (txtUsuSenha.getText().isEmpty())) {
+            } else {
+                //As linhas abaixo atualiza a tabela tb_usuarios com os dados do usuário
+                //A estrutura abaixo é usada para confirmar alteração dos dados na tabela
+                int adicionado = pst.executeUpdate();
+                if (adicionado > 0) {
+                    JOptionPane.showMessageDialog(null, "Dados do usuário alterados com sucesso !");
+                    limpaTela();
+                    btnUsuAdicionar.setEnabled(false);
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    private void remover() {
+        String sql = "DELETE FROM tb_usuarios where id_usuario=?";
+
+        //Variavel vai armazenar tipo de dado referente a pergunta
+        int removido = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir este usuário?", "Atenção !", JOptionPane.YES_NO_OPTION);
+        if (removido == JOptionPane.YES_OPTION) {
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, txtUsuID.getText());
+                //Comando para excluir usuario
+                int apagado = pst.executeUpdate();
+                if (apagado > 0) {
+                    JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso.");
+                    limpaTela();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -125,7 +183,7 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
 
         lblUsuPerfil.setText("*Perfil: ");
 
-        cboUsuPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar", "admin", "user" }));
+        cboUsuPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "user" }));
 
         lblUsuFone.setText("Fone:");
 
@@ -133,6 +191,11 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
         btnUsuAdicionar.setToolTipText("Adicionar usuário");
         btnUsuAdicionar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUsuAdicionar.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnUsuAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuAdicionarActionPerformed(evt);
+            }
+        });
 
         btnUsuProcurar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sorveteria/imagens/read.png"))); // NOI18N
         btnUsuProcurar.setToolTipText("Procurar usuário");
@@ -148,11 +211,21 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
         bntUsuAlterar.setToolTipText("Alterar Usuário");
         bntUsuAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bntUsuAlterar.setPreferredSize(new java.awt.Dimension(80, 80));
+        bntUsuAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntUsuAlterarActionPerformed(evt);
+            }
+        });
 
         btnUsuExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sorveteria/imagens/delete.png"))); // NOI18N
         btnUsuExcluir.setToolTipText("Remover usuário");
         btnUsuExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUsuExcluir.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnUsuExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuExcluirActionPerformed(evt);
+            }
+        });
 
         try {
             txtUsuFone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## #####-####")));
@@ -268,6 +341,21 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
     private void btnUsuProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuProcurarActionPerformed
         consultar();
     }//GEN-LAST:event_btnUsuProcurarActionPerformed
+
+    private void bntUsuAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntUsuAlterarActionPerformed
+        // método para alterar dados do usuário
+        alterar();
+    }//GEN-LAST:event_bntUsuAlterarActionPerformed
+
+    private void btnUsuAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuAdicionarActionPerformed
+        //Método para adicionar usuário
+        adicionar();
+    }//GEN-LAST:event_btnUsuAdicionarActionPerformed
+
+    private void btnUsuExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuExcluirActionPerformed
+        //Método para excluir usuário
+        remover();
+    }//GEN-LAST:event_btnUsuExcluirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
