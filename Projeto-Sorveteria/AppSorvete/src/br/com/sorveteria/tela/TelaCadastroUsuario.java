@@ -339,7 +339,11 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUsuProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuProcurarActionPerformed
-        consultar();
+        if(txtUsuID.getText() == null){
+            JOptionPane.showMessageDialog(null, "Informe um ID para pesquisa de usuário.");
+        }else{
+            consultar();
+        }
     }//GEN-LAST:event_btnUsuProcurarActionPerformed
 
     private void bntUsuAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntUsuAlterarActionPerformed
