@@ -97,7 +97,7 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
 
     //Método para alterar dados do cliente
     private void alterar() {
-        String sql = "UPDATE tb_clientes set nome_cliente=?, matricula = ?, setor = ? where codigo_cliente = ?";
+        String sql = "UPDATE tb_clientes SET nome_cliente=?, matricula = ?, setor =? where codigo_cliente = ?";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -115,7 +115,7 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
                 //A estrutura abaixo é usada para confirmar alteração dos dados na tabela
                 int adicionado = pst.executeUpdate();
                 if (adicionado > 0) {
-                    JOptionPane.showMessageDialog(null, "Dados do usuário alterados com sucesso !");
+                    JOptionPane.showMessageDialog(null, "Dados do cliente alterados com sucesso !");
                     limpaTela();
                     btnCliAdicionar.setEnabled(true);
                 }
@@ -155,17 +155,17 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         painelCadastroCliente = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblCodicoCliente = new javax.swing.JLabel();
+        lblNome = new javax.swing.JLabel();
         txtCliNome = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblMatricula = new javax.swing.JLabel();
+        lblSetor = new javax.swing.JLabel();
         cboCliSetor = new javax.swing.JComboBox<>();
         btnCliAdicionar = new javax.swing.JButton();
         btnCliAlterar = new javax.swing.JButton();
         btnCliRemover = new javax.swing.JButton();
         txtCliPesquisa = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        lblCampoObrigatorio = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
@@ -179,13 +179,13 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
         setTitle("Cadastro Cliente");
         setToolTipText("");
 
-        jLabel1.setText("Codigo cliente:");
+        lblCodicoCliente.setText("Codigo cliente:");
 
-        jLabel2.setText("*Nome:");
+        lblNome.setText("*Nome:");
 
-        jLabel3.setText("*Matricula");
+        lblMatricula.setText("*Matricula");
 
-        jLabel4.setText("*Setor:");
+        lblSetor.setText("*Setor:");
 
         cboCliSetor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar", "TI", "Recebimento", "Almoxarifado", "Produção", "Qualidade", "Contabilidade", "RH", "Samsung", "Compras", "Negócios", " ", " " }));
 
@@ -225,7 +225,7 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel5.setText("*Campos obrigatórios");
+        lblCampoObrigatorio.setText("*Campos obrigatórios");
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sorveteria/imagens/zoom.png"))); // NOI18N
 
@@ -247,7 +247,7 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
         txtCliCod.setEnabled(false);
 
         try {
-            txtCliMatricula.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
+            txtCliMatricula.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -271,18 +271,18 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
                         .addGap(30, 30, 30)
                         .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtCliNome, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
+                            .addComponent(lblCodicoCliente)
                             .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(txtCliCod, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(lblNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(128, 128, 128)
                         .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtCliMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
+                            .addComponent(lblMatricula)
                             .addComponent(cboCliSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)))
+                            .addComponent(lblSetor)))
                     .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel5)
+                        .addComponent(lblCampoObrigatorio)
                         .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelCadastroClienteLayout.createSequentialGroup()
                                 .addGap(97, 97, 97)
@@ -302,26 +302,26 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
                     .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtCliPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5))
+                        .addComponent(lblCampoObrigatorio))
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(painelCadastroClienteLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(lblMatricula)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtCliMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(22, 22, 22)
-                        .addComponent(jLabel4)
+                        .addComponent(lblSetor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cboCliSetor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(painelCadastroClienteLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(lblCodicoCliente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtCliCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
+                        .addComponent(lblNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtCliNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
@@ -381,14 +381,14 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCliAlterar;
     private javax.swing.JButton btnCliRemover;
     private javax.swing.JComboBox<String> cboCliSetor;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCampoObrigatorio;
+    private javax.swing.JLabel lblCodicoCliente;
+    private javax.swing.JLabel lblMatricula;
+    private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblSetor;
     private javax.swing.JPanel painelCadastroCliente;
     private javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtCliCod;
