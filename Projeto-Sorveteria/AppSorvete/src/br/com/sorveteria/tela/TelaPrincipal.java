@@ -100,6 +100,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menModuloVenderSorvetes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, java.awt.event.InputEvent.SHIFT_MASK));
         menModuloVenderSorvetes.setText("Vender Sorvete");
+        menModuloVenderSorvetes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menModuloVenderSorvetesActionPerformed(evt);
+            }
+        });
         menModulo.add(menModuloVenderSorvetes);
 
         menuVendasSorvete.add(menModulo);
@@ -224,6 +229,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaCadUser.setVisible(true);
         jDesktopPane1.add(telaCadUser);
     }//GEN-LAST:event_menModuloCadastroUsuarioActionPerformed
+
+    private void menModuloVenderSorvetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menModuloVenderSorvetesActionPerformed
+        //Chamando tela OS
+        TelaVendaSorvete telaVendaSorvete = new TelaVendaSorvete();
+        telaVendaSorvete.setVisible(true);
+        jDesktopPane1.add(telaVendaSorvete);
+    }//GEN-LAST:event_menModuloVenderSorvetesActionPerformed
 
     /**
      * @param args the command line arguments

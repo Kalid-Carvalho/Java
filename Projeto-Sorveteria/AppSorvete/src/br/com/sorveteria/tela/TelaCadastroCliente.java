@@ -82,7 +82,6 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-
     }
 
     //Método para setar os campos do formulário com o conteudo da tabela
@@ -147,7 +146,6 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
             }
 
         }
-
     }
 
     @SuppressWarnings("unchecked")
