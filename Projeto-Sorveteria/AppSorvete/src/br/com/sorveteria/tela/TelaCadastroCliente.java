@@ -29,21 +29,19 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
         txtCliPesquisa.setText(null);
         txtCliNome.setText(null);
         txtCliCod.setText(null);
-        txtCliMatricula.setText(null);
         cboCliSetor.setSelectedItem("Selecionar");
     }
 
     private void adicionar() {
-        String sql = "INSERT INTO tb_clientes(nome_cliente,matricula,setor)VALUES(?,?,?)";
-
+        String sql = "INSERT INTO tb_clientes(nome_cliente,setor)VALUES(?,?)";
+        
         try {
-            // parametros( numero do campo na tabela que está sendo usada, conteudo que foi digitado)
+            // parametros(número do campo na tabela que está sendo usada, conteudo que foi digitado)
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, txtCliNome.getText());
-            pst.setString(2, txtCliMatricula.getText());
-            pst.setString(3, cboCliSetor.getSelectedItem().toString());
+            pst.setString(1, txtCliNome.getText());          
+            pst.setString(2, cboCliSetor.getSelectedItem().toString());
 
-            if ((txtCliNome.getText().isEmpty()) || (cboCliSetor.getSelectedItem().equals("Selecionar")) || txtCliMatricula.getText().isEmpty()) {
+            if ((txtCliNome.getText().isEmpty()) || (cboCliSetor.getSelectedItem().equals("Selecionar"))) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
             } else {
                 //As linhas abaixo adicionão a tabela tb_clientes os dados do usuário
@@ -70,7 +68,7 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
 
     //método para pesquisar clientes pelo nome com filtro
     private void pesquisar_cliente() {
-        String sql = "SELECT codigo_cliente as Código, nome_cliente as Nome, matricula as Matrícula, setor as Setor FROM tb_clientes where nome_cliente like ?";
+        String sql = "SELECT codigo_cliente as Código, nome_cliente as Nome, setor as Setor FROM tb_clientes where nome_cliente like ?";
         try {
             pst = conexao.prepareStatement(sql);
             //Passando o conteúdo da caixa de pesquisa para o ?
@@ -89,26 +87,25 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
         int setar = tblClientes.getSelectedRow();
         txtCliCod.setText(tblClientes.getModel().getValueAt(setar, 0).toString());
         txtCliNome.setText(tblClientes.getModel().getValueAt(setar, 1).toString());
-        txtCliMatricula.setText(tblClientes.getModel().getValueAt(setar, 2).toString());
-        cboCliSetor.setSelectedItem(tblClientes.getModel().getValueAt(setar, 3).toString());
+        cboCliSetor.setSelectedItem(tblClientes.getModel().getValueAt(setar, 2).toString());
         btnCliAdicionar.setEnabled(false);
     }
 
     //Método para alterar dados do cliente
     private void alterar() {
-        String sql = "UPDATE tb_clientes SET nome_cliente=?, matricula = ?, setor =? where codigo_cliente = ?";
+        String sql = "UPDATE tb_clientes SET nome_cliente=?, setor =? where codigo_cliente = ?";
 
         try {
             pst = conexao.prepareStatement(sql);
 
             //Coletando dados do usuário
             pst.setString(1, txtCliNome.getText());
-            pst.setString(2, txtCliMatricula.getText());
             pst.setString(3, cboCliSetor.getSelectedItem().toString());
             pst.setString(4, txtCliCod.getText());
 
             //Validando se campos obrigatórios estão digitados corretamente
-            if ((txtCliNome.getText().isEmpty()) || (cboCliSetor.getSelectedItem().equals("Selecionar")) || txtCliMatricula.getText().isEmpty()) {
+            if ((txtCliNome.getText().isEmpty()) || (cboCliSetor.getSelectedItem().equals("Selecionar"))) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
             } else {
                 //As linhas abaixo atualiza a tabela tb_clientes com os dados do usuário
                 //A estrutura abaixo é usada para confirmar alteração dos dados na tabela
@@ -156,7 +153,6 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
         lblCodicoCliente = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
         txtCliNome = new javax.swing.JTextField();
-        lblMatricula = new javax.swing.JLabel();
         lblSetor = new javax.swing.JLabel();
         cboCliSetor = new javax.swing.JComboBox<>();
         btnCliAdicionar = new javax.swing.JButton();
@@ -168,7 +164,6 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
         txtCliCod = new javax.swing.JTextField();
-        txtCliMatricula = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
 
         setClosable(true);
@@ -181,11 +176,9 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
 
         lblNome.setText("*Nome:");
 
-        lblMatricula.setText("*Matricula");
-
         lblSetor.setText("*Setor:");
 
-        cboCliSetor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar", "TI", "Recebimento", "Almoxarifado", "Produção", "Qualidade", "Contabilidade", "RH", "Samsung", "Compras", "Negócios", " ", " " }));
+        cboCliSetor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar", "TI", "Expedição", "Almoxarifado", "Produção", "Qualidade", "Contabilidade", "RH", "Samsung", "Compras", "Negócios", "Piovan", "Engenharia" }));
 
         btnCliAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sorveteria/imagens/insert.png"))); // NOI18N
         btnCliAdicionar.setToolTipText("Adicionar usuário");
@@ -244,12 +237,6 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
 
         txtCliCod.setEnabled(false);
 
-        try {
-            txtCliMatricula.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sorveteria/imagens/zoom.png"))); // NOI18N
 
         javax.swing.GroupLayout painelCadastroClienteLayout = new javax.swing.GroupLayout(painelCadastroCliente);
@@ -265,31 +252,30 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1408, 1408, 1408)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelCadastroClienteLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCliNome, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCodicoCliente)
-                            .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtCliCod, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(128, 128, 128)
-                        .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCliMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblMatricula)
-                            .addComponent(cboCliSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblSetor)))
                     .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(lblCampoObrigatorio)
                         .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(painelCadastroClienteLayout.createSequentialGroup()
-                                .addGap(97, 97, 97)
-                                .addComponent(btnCliAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(97, 97, 97)
-                                .addComponent(btnCliAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(84, 84, 84)
-                                .addComponent(btnCliRemover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(painelCadastroClienteLayout.createSequentialGroup()
+                                        .addGap(97, 97, 97)
+                                        .addComponent(btnCliAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(97, 97, 97)
+                                        .addComponent(btnCliAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(painelCadastroClienteLayout.createSequentialGroup()
+                                        .addGap(30, 30, 30)
+                                        .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblCodicoCliente)
+                                            .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(txtCliCod, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(lblNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addComponent(txtCliNome, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cboCliSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblSetor)
+                                    .addComponent(btnCliRemover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelCadastroClienteLayout.setVerticalGroup(
@@ -297,32 +283,28 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
             .addGroup(painelCadastroClienteLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtCliPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblCampoObrigatorio))
+                        .addComponent(lblCampoObrigatorio, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(txtCliPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(painelCadastroClienteLayout.createSequentialGroup()
-                        .addComponent(lblMatricula)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCliMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
-                        .addComponent(lblSetor)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cboCliSetor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelCadastroClienteLayout.createSequentialGroup()
                         .addComponent(lblCodicoCliente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCliCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblNome)
+                        .addComponent(txtCliCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelCadastroClienteLayout.createSequentialGroup()
+                        .addComponent(lblSetor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCliNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                        .addComponent(cboCliSetor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(16, 16, 16)
+                .addComponent(lblNome)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtCliNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCliRemover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,13 +366,11 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCampoObrigatorio;
     private javax.swing.JLabel lblCodicoCliente;
-    private javax.swing.JLabel lblMatricula;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblSetor;
     private javax.swing.JPanel painelCadastroCliente;
     private javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtCliCod;
-    private javax.swing.JFormattedTextField txtCliMatricula;
     private javax.swing.JTextField txtCliNome;
     private javax.swing.JTextField txtCliPesquisa;
     // End of variables declaration//GEN-END:variables

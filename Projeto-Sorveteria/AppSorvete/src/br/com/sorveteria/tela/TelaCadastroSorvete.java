@@ -65,8 +65,8 @@ public class TelaCadastroSorvete extends javax.swing.JInternalFrame {
         }
     }
 
-    //método para pesquisar clientes pelo nome com filtro
-    private void pesquisar_cliente() {
+    //método para pesquisar sorvetes pelo nome com filtro
+    private void pesquisar_sorvete() {
         String sql = "SELECT codigo_sorvete as Código, descricao as Descrição, preco as Preço FROM tb_sorvetes WHERE descricao like ?";
         try {
             pst = conexao.prepareStatement(sql);
@@ -283,10 +283,10 @@ public class TelaCadastroSorvete extends javax.swing.JInternalFrame {
             .addGroup(painelCadastroClienteLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtSorvPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblCampoObrigatorio))
+                        .addComponent(lblCampoObrigatorio, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(txtSorvPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -345,7 +345,7 @@ public class TelaCadastroSorvete extends javax.swing.JInternalFrame {
 
     private void txtSorvPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSorvPesquisaKeyReleased
         //O evento abaixo é do tipo enquanto for digitando em tempo real aparece os resultados
-        pesquisar_cliente();
+        pesquisar_sorvete();
     }//GEN-LAST:event_txtSorvPesquisaKeyReleased
 
     private void tblSorvetesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSorvetesMouseClicked

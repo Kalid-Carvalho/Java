@@ -30,8 +30,8 @@ public class TelaLogin extends javax.swing.JFrame {
                     TelaPrincipal principal = new TelaPrincipal();
                     principal.setVisible(true);
                     //Habilitando módulos que so estaram disponiveis caso o usuário que logar for administrador
-                    TelaPrincipal.menModuloCadastrarSorvete.setEnabled(true);
-                    TelaPrincipal.menModuloCadastroUsuario.setEnabled(true);
+                    TelaPrincipal.menModuloClientes.setEnabled(true);
+                    TelaPrincipal.menModuloUsuario.setEnabled(true);
                     TelaPrincipal.menRelatorioCliente.setEnabled(true);
                     TelaPrincipal.menRelatorioSorvete.setEnabled(true);
                     //Mostrar nome de usuário 
@@ -59,6 +59,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
     public TelaLogin() {
         initComponents();
+        getRootPane().setDefaultButton(btnLogin);
 
         conexao = ModuloConexao.conector();
 
@@ -177,6 +178,7 @@ public class TelaLogin extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaLogin().setVisible(true);
+                
             }
         });
     }

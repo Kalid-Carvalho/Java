@@ -1,7 +1,6 @@
 package br.com.sorveteria.tela;
 
 import java.awt.Desktop;
-import java.awt.Dimension;
 import java.text.DateFormat;
 import java.util.Date;
 import javax.swing.JInternalFrame;
@@ -23,10 +22,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblData = new javax.swing.JLabel();
         menuVendasSorvete = new javax.swing.JMenuBar();
         menModulo = new javax.swing.JMenu();
-        menModuloCadastroUsuario = new javax.swing.JMenuItem();
-        menModuloCadastrarCliente = new javax.swing.JMenuItem();
-        menModuloCadastrarSorvete = new javax.swing.JMenuItem();
-        menModuloVenderSorvetes = new javax.swing.JMenuItem();
+        menModuloUsuario = new javax.swing.JMenu();
+        ItemCadastroUsuário = new javax.swing.JMenuItem();
+        menModuloClientes = new javax.swing.JMenu();
+        itemCadastroClientes = new javax.swing.JMenuItem();
+        menModuloSorvetes = new javax.swing.JMenu();
+        itemCadastrarSorvetes = new javax.swing.JMenuItem();
+        itemVenderSorvete = new javax.swing.JMenuItem();
+        itemPagarSorvete = new javax.swing.JMenuItem();
         menRelatorio = new javax.swing.JMenu();
         menRelatorioSorvete = new javax.swing.JMenuItem();
         menRelatorioCliente = new javax.swing.JMenuItem();
@@ -63,49 +66,55 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblData.setText("Data");
 
         menModulo.setText("Módulos");
-        menModulo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menModuloActionPerformed(evt);
-            }
-        });
 
-        menModuloCadastroUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK));
-        menModuloCadastroUsuario.setText("Usuário");
-        menModuloCadastroUsuario.setEnabled(false);
-        menModuloCadastroUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menModuloCadastroUsuarioActionPerformed(evt);
-            }
-        });
-        menModulo.add(menModuloCadastroUsuario);
+        menModuloUsuario.setText("Usuário");
+        menModuloUsuario.setEnabled(false);
 
-        menModuloCadastrarCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
-        menModuloCadastrarCliente.setText("Cliente");
-        menModuloCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
+        ItemCadastroUsuário.setText("Cadastrar Usuário");
+        ItemCadastroUsuário.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menModuloCadastrarClienteActionPerformed(evt);
+                ItemCadastroUsuárioActionPerformed(evt);
             }
         });
-        menModulo.add(menModuloCadastrarCliente);
+        menModuloUsuario.add(ItemCadastroUsuário);
 
-        menModuloCadastrarSorvete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
-        menModuloCadastrarSorvete.setText("Sorvete");
-        menModuloCadastrarSorvete.setEnabled(false);
-        menModuloCadastrarSorvete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menModuloCadastrarSorveteActionPerformed(evt);
-            }
-        });
-        menModulo.add(menModuloCadastrarSorvete);
+        menModulo.add(menModuloUsuario);
 
-        menModuloVenderSorvetes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, java.awt.event.InputEvent.SHIFT_MASK));
-        menModuloVenderSorvetes.setText("Vender Sorvete");
-        menModuloVenderSorvetes.addActionListener(new java.awt.event.ActionListener() {
+        menModuloClientes.setText("Clientes");
+        menModuloClientes.setEnabled(false);
+
+        itemCadastroClientes.setText("Cadastrar Clientes");
+        itemCadastroClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menModuloVenderSorvetesActionPerformed(evt);
+                itemCadastroClientesActionPerformed(evt);
             }
         });
-        menModulo.add(menModuloVenderSorvetes);
+        menModuloClientes.add(itemCadastroClientes);
+
+        menModulo.add(menModuloClientes);
+
+        menModuloSorvetes.setText("Sorvetes");
+
+        itemCadastrarSorvetes.setText("Cadastrar Sorvetes");
+        itemCadastrarSorvetes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCadastrarSorvetesActionPerformed(evt);
+            }
+        });
+        menModuloSorvetes.add(itemCadastrarSorvetes);
+
+        itemVenderSorvete.setText("Vender Sorvete");
+        itemVenderSorvete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemVenderSorveteActionPerformed(evt);
+            }
+        });
+        menModuloSorvetes.add(itemVenderSorvete);
+
+        itemPagarSorvete.setText("Pagar Sorvete");
+        menModuloSorvetes.add(itemPagarSorvete);
+
+        menModulo.add(menModuloSorvetes);
 
         menuVendasSorvete.add(menModulo);
 
@@ -181,21 +190,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void menModuloCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menModuloCadastrarClienteActionPerformed
-        // Criando variavel de referencia telaCadUser
-        TelaCadastroCliente telaCadUser = new TelaCadastroCliente();
-        // Adicionando telaCadUser ao Painel da area de trabalho
-        jDesktopPane1.add(telaCadUser);
-        // Mostrando a tela de cadastro ao clicar em cadastrar cliente.
-        telaCadUser.setVisible(true);
-    }//GEN-LAST:event_menModuloCadastrarClienteActionPerformed
-
-    private void menModuloCadastrarSorveteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menModuloCadastrarSorveteActionPerformed
-        TelaCadastroSorvete telaCadSorvete = new TelaCadastroSorvete();
-        jDesktopPane1.add(telaCadSorvete);
-        telaCadSorvete.setVisible(true);
-    }//GEN-LAST:event_menModuloCadastrarSorveteActionPerformed
-
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         //Botando data para aparecer automatico quando iniciar o sistema
         Date data = new Date();
@@ -215,27 +209,35 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menOpcoesSairActionPerformed
 
-    private void menModuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menModuloActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menModuloActionPerformed
-
     private void menAjudaSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menAjudaSobreActionPerformed
         TelaSobre sobre = new TelaSobre();
         sobre.setVisible(true);
     }//GEN-LAST:event_menAjudaSobreActionPerformed
 
-    private void menModuloCadastroUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menModuloCadastroUsuarioActionPerformed
-        TelaCadastroUsuario telaCadUser = new TelaCadastroUsuario();
-        telaCadUser.setVisible(true);
-        jDesktopPane1.add(telaCadUser);
-    }//GEN-LAST:event_menModuloCadastroUsuarioActionPerformed
+    private void ItemCadastroUsuárioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemCadastroUsuárioActionPerformed
+        TelaCadastroUsuario usuario = new TelaCadastroUsuario();
+        usuario.setVisible(true);
+        jDesktopPane1.add(usuario);
+    }//GEN-LAST:event_ItemCadastroUsuárioActionPerformed
 
-    private void menModuloVenderSorvetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menModuloVenderSorvetesActionPerformed
-        //Chamando tela OS
-        TelaVendaSorvete telaVendaSorvete = new TelaVendaSorvete();
-        telaVendaSorvete.setVisible(true);
-        jDesktopPane1.add(telaVendaSorvete);
-    }//GEN-LAST:event_menModuloVenderSorvetesActionPerformed
+    private void itemCadastroClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastroClientesActionPerformed
+        //Ao clicar abrir tela de cadastro de usuário
+        TelaCadastroCliente cliente = new TelaCadastroCliente();
+        cliente.setVisible(true);
+        jDesktopPane1.add(cliente);
+    }//GEN-LAST:event_itemCadastroClientesActionPerformed
+
+    private void itemVenderSorveteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemVenderSorveteActionPerformed
+        TelaVendaSorvete sorvete = new TelaVendaSorvete();
+        sorvete.setVisible(true);
+        jDesktopPane1.add(sorvete);
+    }//GEN-LAST:event_itemVenderSorveteActionPerformed
+
+    private void itemCadastrarSorvetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastrarSorvetesActionPerformed
+        TelaCadastroSorvete telaSorv = new TelaCadastroSorvete();
+        telaSorv.setVisible(true);
+        jDesktopPane1.add(telaSorv);              
+    }//GEN-LAST:event_itemCadastrarSorvetesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -268,22 +270,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                //Método que invoca a tela
                 new TelaPrincipal().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem ItemCadastroUsuário;
+    private javax.swing.JMenuItem itemCadastrarSorvetes;
+    private javax.swing.JMenuItem itemCadastroClientes;
+    private javax.swing.JMenuItem itemPagarSorvete;
+    private javax.swing.JMenuItem itemVenderSorvete;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel lblData;
     public static javax.swing.JLabel lblUsuario;
     private javax.swing.JMenu menAjuda;
     private javax.swing.JMenuItem menAjudaSobre;
     private javax.swing.JMenu menModulo;
-    private javax.swing.JMenuItem menModuloCadastrarCliente;
-    public static javax.swing.JMenuItem menModuloCadastrarSorvete;
-    public static javax.swing.JMenuItem menModuloCadastroUsuario;
-    private javax.swing.JMenuItem menModuloVenderSorvetes;
+    public static javax.swing.JMenu menModuloClientes;
+    private javax.swing.JMenu menModuloSorvetes;
+    public static javax.swing.JMenu menModuloUsuario;
     private javax.swing.JMenu menOpcoes;
     private javax.swing.JMenuItem menOpcoesSair;
     private javax.swing.JMenu menRelatorio;
