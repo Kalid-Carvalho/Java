@@ -17,6 +17,26 @@ public class TelaVendaSorvete extends javax.swing.JInternalFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
 
+    //A linha abaixo cria uma variavel para armazenar um texto de acordo com o radio button selecionado
+    private String tipo;
+
+    private void limpaTela() {
+        txtIdCliente.setText(null);
+        txtIdSorvete.setText(null);
+        txtPesqCliente.setText(null);
+        txtPesqSorvete.setText(null);
+        txtQtdSorvetes.setText(null);
+        txtValTotal.setText(null);
+        cboSituacao.setSelectedItem("Selecionar");
+        txtOS.setText(null);
+        txtData.setText(null);
+        btnVendaAdicionar.setEnabled(true);
+        txtPesqCliente.setEnabled(true);
+        txtIdCliente.setEnabled(true);
+        txtIdSorvete.setEnabled(true);
+        txtPesqSorvete.setEnabled(true);     
+    }
+
     public TelaVendaSorvete() {
         initComponents();
         // fazendo a coneão com o banco de dados
@@ -38,6 +58,7 @@ public class TelaVendaSorvete extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+
     //método para pesquisar sorvetes pelo nome com filtro
     private void pesquisar_sorvete() {
         String sql = "SELECT codigo_sorvete as Código, descricao as Descrição, preco as Preço FROM tb_sorvetes WHERE descricao like ?";
@@ -53,14 +74,150 @@ public class TelaVendaSorvete extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+
     private void setar_campo_id_cliente() {
         int setar = tblCliente.getSelectedRow();
         txtIdCliente.setText(tblCliente.getModel().getValueAt(setar, 0).toString());
     }
+
     private void setar_campo_id_sorvete() {
         int setar = tblSorvete.getSelectedRow();
         txtIdSorvete.setText(tblSorvete.getModel().getValueAt(setar, 0).toString());
     }
+
+    //método para cadastrar uma venda
+    private void emitir_venda() {
+        //String usada para armazenar codigo sql que sera usada no banco
+        String sql = "INSERT INTO compra_sorvete(tipo, qtd_sorvetes, valor, situacao, codigo_cliente, codigo_sorvete)VALUES(?,?,?,?,?,?)";
+
+        try {
+            //preparando a conexão
+            pst = conexao.prepareStatement(sql);
+            //Armazena a variavel que foi criada para armazenar tipo de venda
+            pst.setString(1, tipo);
+            //pegando o que está escrito no formulário através da função getText e passando para as interrogações que estão na variavel SQL
+            pst.setString(2, txtQtdSorvetes.getText());
+            pst.setString(3, txtValTotal.getText());
+            pst.setString(4, cboSituacao.getSelectedItem().toString());
+            pst.setString(5, txtIdCliente.getText());
+            pst.setString(6, txtIdSorvete.getText());
+            if ((txtQtdSorvetes.getText().isEmpty()) || (txtValTotal.getText().isEmpty()) || (txtIdCliente.getText().isEmpty()) || (txtIdSorvete.getText().isEmpty()) || (cboSituacao.getSelectedItem().equals("Selecionar"))) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
+            } else {
+                //As linhas abaixo atualiza a tabela compra_sorvete com a efetuação da venda
+                //A estrutura abaixo é usada para confirmar alteração dos dados na tabela
+                int adicionado = pst.executeUpdate();
+                if (adicionado > 0) {
+                    JOptionPane.showMessageDialog(null, "Venda realizada com sucesso !");
+                    //Estrutura onde se for aceita vai deixar emitir outra venda de sorvete
+                    int continuar = JOptionPane.showConfirmDialog(null, "Deseja efetuar uma nova venda? ", "Atenção !", JOptionPane.YES_NO_OPTION);
+                    if (continuar == JOptionPane.YES_OPTION) {
+                        limpaTela();
+                        btnVendaAdicionar.setEnabled(true);
+                    } else {
+                        limpaTela();
+                        btnVendaAdicionar.setEnabled(false);
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+    }
+
+    private void pesquisar_venda() {
+        //a linha abaixo cria uma entrada do tipo jOptionPane
+        String num_venda = JOptionPane.showInputDialog("Número da OS: ");
+        String sql = "SELECT * FROM compra_sorvete where os =" + num_venda;
+        try {
+            pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                //setando campos no formulário 
+                txtOS.setText(rs.getString(1));
+                txtData.setText(rs.getString(2));
+                txtQtdSorvetes.setText(rs.getString(4));
+                txtValTotal.setText(rs.getString(5));
+                cboSituacao.setSelectedItem(rs.getString(6));
+                txtIdCliente.setText(rs.getString(7));
+                txtIdSorvete.setText(rs.getString(8));
+                //evitando problemas
+                btnVendaAdicionar.setEnabled(false);
+                txtPesqCliente.setEnabled(false);
+                txtPesqSorvete.setEnabled(false);
+                tblCliente.setVisible(false);
+                tblSorvete.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "Os não cadastrada !");
+
+            }
+        } catch (com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException e) {
+            JOptionPane.showMessageDialog(null, "OS Inválida !");
+            //System.out.println(e);
+        } catch (Exception e2) {
+            JOptionPane.showMessageDialog(null, e2);
+        }
+    }
+
+    private void alterar_os() {
+        String sql = "UPDATE compra_venda set tipo = ?, quantidade_sorvetes = ?, valor = ?, situacao = ? where os = ?";
+
+        try {
+            //preparando a conexão
+            pst = conexao.prepareStatement(sql);
+            //Armazena a variavel que foi criada para armazenar tipo de venda
+            pst.setString(1, tipo);
+            //pegando o que está escrito no formulário através da função getText e passando para as interrogações que estão na variavel SQL
+            pst.setString(2, txtQtdSorvetes.getText());
+            pst.setString(3, txtValTotal.getText());
+            pst.setString(4, cboSituacao.getSelectedItem().toString());
+            pst.setString(5, txtOS.getText());
+            if ((txtQtdSorvetes.getText().isEmpty()) || (txtValTotal.getText().isEmpty()) || (txtIdCliente.getText().isEmpty()) || (txtIdSorvete.getText().isEmpty()) || (cboSituacao.getSelectedItem().equals("Selecionar"))) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
+            } else {
+                //As linhas abaixo atualiza a tabela compra_sorvete com a efetuação da venda
+                //A estrutura abaixo é usada para confirmar alteração dos dados na tabela
+                int adicionado = pst.executeUpdate();
+                if (adicionado > 0) {
+                    JOptionPane.showMessageDialog(null, "Alteração de venda realizada com sucesso !");
+                    //Estrutura onde se for aceita vai deixar emitir outra venda de sorvete
+                    int continuar = JOptionPane.showConfirmDialog(null, "Deseja Alterar outra venda? ", "Atenção !", JOptionPane.YES_NO_OPTION);
+                    if (continuar == JOptionPane.YES_OPTION) {
+                        limpaTela();
+                        btnVendaAdicionar.setEnabled(true);
+                    } else {
+                        limpaTela();
+                        btnVendaAdicionar.setEnabled(false);
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    private void excluir_os() {
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir essa OS?", "Atenção !", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            String sql = "DELETE FROM compra_sorvete WHERE os = ?";
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, txtOS.getText());
+                int apagado = pst.executeUpdate();
+                if (apagado > 0) {
+                    JOptionPane.showMessageDialog(null, "OS Excluída com sucesso.");
+                    limpaTela();
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -72,7 +229,7 @@ public class TelaVendaSorvete extends javax.swing.JInternalFrame {
         lblData = new javax.swing.JLabel();
         txtOS = new javax.swing.JTextField();
         txtData = new javax.swing.JTextField();
-        rbVendaSorvete = new javax.swing.JRadioButton();
+        rbTipoVenda = new javax.swing.JRadioButton();
         jPanelSorvete = new javax.swing.JPanel();
         txtPesqSorvete = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -103,6 +260,23 @@ public class TelaVendaSorvete extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setTitle("Venda de Sorvetes");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -112,28 +286,36 @@ public class TelaVendaSorvete extends javax.swing.JInternalFrame {
 
         txtOS.setEnabled(false);
 
+        txtData.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         txtData.setEnabled(false);
 
-        buttonGroup1.add(rbVendaSorvete);
-        rbVendaSorvete.setText("Venda de Sorvete");
+        buttonGroup1.add(rbTipoVenda);
+        rbTipoVenda.setText("Venda de Sorvete");
+        rbTipoVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbTipoVendaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rbVendaSorvete, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtOS, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblOS))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtData)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblOS)
-                            .addComponent(txtOS, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(50, 50, 50)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblData)
-                            .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(13, Short.MAX_VALUE))
+                        .addComponent(lblData)
+                        .addGap(0, 115, Short.MAX_VALUE))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(rbTipoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,7 +329,7 @@ public class TelaVendaSorvete extends javax.swing.JInternalFrame {
                     .addComponent(txtOS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(rbVendaSorvete)
+                .addComponent(rbTipoVenda)
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
@@ -180,6 +362,8 @@ public class TelaVendaSorvete extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(tblSorvete);
+
+        txtIdSorvete.setEnabled(false);
 
         javax.swing.GroupLayout jPanelSorveteLayout = new javax.swing.GroupLayout(jPanelSorvete);
         jPanelSorvete.setLayout(jPanelSorveteLayout);
@@ -217,7 +401,7 @@ public class TelaVendaSorvete extends javax.swing.JInternalFrame {
 
         lblSituacao.setText("Situação:");
 
-        cboSituacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pendente", "Pago" }));
+        cboSituacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar", "Pendente", "Pago" }));
 
         jPanelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Cliente"));
 
@@ -248,6 +432,8 @@ public class TelaVendaSorvete extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane3.setViewportView(tblCliente);
+
+        txtIdCliente.setEnabled(false);
 
         javax.swing.GroupLayout jPanelClienteLayout = new javax.swing.GroupLayout(jPanelCliente);
         jPanelCliente.setLayout(jPanelClienteLayout);
@@ -286,7 +472,7 @@ public class TelaVendaSorvete extends javax.swing.JInternalFrame {
         jLabel1.setText("*Quantidade de Sorvetes");
 
         btnVendaAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sorveteria/imagens/insert.png"))); // NOI18N
-        btnVendaAdicionar.setToolTipText("Adicionar usuário");
+        btnVendaAdicionar.setToolTipText("Emitir Venda");
         btnVendaAdicionar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVendaAdicionar.setPreferredSize(new java.awt.Dimension(70, 70));
         btnVendaAdicionar.addActionListener(new java.awt.event.ActionListener() {
@@ -296,7 +482,7 @@ public class TelaVendaSorvete extends javax.swing.JInternalFrame {
         });
 
         btnVendaPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sorveteria/imagens/read.png"))); // NOI18N
-        btnVendaPesquisar.setToolTipText("Procurar usuário");
+        btnVendaPesquisar.setToolTipText("Pesquisa venda f");
         btnVendaPesquisar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVendaPesquisar.setPreferredSize(new java.awt.Dimension(70, 70));
         btnVendaPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -306,7 +492,7 @@ public class TelaVendaSorvete extends javax.swing.JInternalFrame {
         });
 
         btnVendaAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sorveteria/imagens/update.png"))); // NOI18N
-        btnVendaAlterar.setToolTipText("Alterar Usuário");
+        btnVendaAlterar.setToolTipText("Alterar venda");
         btnVendaAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVendaAlterar.setPreferredSize(new java.awt.Dimension(70, 70));
         btnVendaAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -349,7 +535,7 @@ public class TelaVendaSorvete extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblSituacao)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cboSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cboSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -425,8 +611,7 @@ public class TelaVendaSorvete extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVendaRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendaRemoverActionPerformed
-        //Método para excluir usuário
-        //remover();
+        excluir_os();
     }//GEN-LAST:event_btnVendaRemoverActionPerformed
 
     private void btnVendaAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendaAlterarActionPerformed
@@ -435,12 +620,12 @@ public class TelaVendaSorvete extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnVendaAlterarActionPerformed
 
     private void btnVendaPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendaPesquisarActionPerformed
-        //consultar
+        pesquisar_venda();
     }//GEN-LAST:event_btnVendaPesquisarActionPerformed
 
     private void btnVendaAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendaAdicionarActionPerformed
         //Método para adicionar usuário
-        //adicionar();
+        emitir_venda();
     }//GEN-LAST:event_btnVendaAdicionarActionPerformed
 
     private void txtPesqClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqClienteKeyReleased
@@ -460,6 +645,16 @@ public class TelaVendaSorvete extends javax.swing.JInternalFrame {
     private void tblSorveteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSorveteMouseClicked
         setar_campo_id_sorvete();
     }//GEN-LAST:event_tblSorveteMouseClicked
+
+    private void rbTipoVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTipoVendaActionPerformed
+        // Atribuido um texto a variavel tipo
+    }//GEN-LAST:event_rbTipoVendaActionPerformed
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        //Ao abrir o form, marcar o radio butto orçamento.
+        rbTipoVenda.setSelected(true);
+        tipo = "Venda Sorvete";
+    }//GEN-LAST:event_formInternalFrameOpened
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -485,7 +680,7 @@ public class TelaVendaSorvete extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblSituacao;
     private javax.swing.JLabel lblcodigo;
     private javax.swing.JLabel lblcodigo2;
-    private javax.swing.JRadioButton rbVendaSorvete;
+    private javax.swing.JRadioButton rbTipoVenda;
     private javax.swing.JTable tblCliente;
     private javax.swing.JTable tblSorvete;
     private javax.swing.JTextField txtData;

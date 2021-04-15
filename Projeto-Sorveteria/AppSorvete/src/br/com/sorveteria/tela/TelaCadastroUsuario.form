@@ -99,6 +99,8 @@
                           <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                           <Component id="txtUsuID" min="-2" pref="48" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
+                          <Component id="txtLimpaTela" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -120,13 +122,14 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtUsuID" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblUsuID" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtLimpaTela" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblUsuNome" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtUsuNome" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -288,6 +291,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="* Campos Obrigat&#xf3;rios"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="txtLimpaTela">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Limpar Tela"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtLimpaTelaActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

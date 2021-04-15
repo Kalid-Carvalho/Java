@@ -78,8 +78,15 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
                 int adicionado = pst.executeUpdate();
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso !");
-                    limpaTela();
-                    btnUsuAdicionar.setEnabled(false);
+                    //Estrutura onde se for aceita vai deixar adicionar outro usuário na tela e apagar os dados do usuario antigo adicionar
+                     int continuar = JOptionPane.showConfirmDialog(null, "Deseja adicionar outro usuário? ", "Atenção !", JOptionPane.YES_NO_OPTION);
+                    if (continuar == JOptionPane.YES_OPTION) {
+                        limpaTela();
+                        btnUsuAdicionar.setEnabled(true);
+                    } else {
+                        limpaTela();
+                        btnUsuAdicionar.setEnabled(false);
+                    }
                 }
             }
 
@@ -165,6 +172,7 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
         btnUsuExcluir = new javax.swing.JButton();
         txtUsuFone = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
+        txtLimpaTela = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -235,6 +243,13 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
 
         jLabel1.setText("* Campos Obrigatórios");
 
+        txtLimpaTela.setText("Limpar Tela");
+        txtLimpaTela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLimpaTelaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -273,6 +288,8 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
                         .addGap(31, 31, 31)
                         .addComponent(txtUsuID, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtLimpaTela)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel1)))
                 .addGap(69, 69, 69))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -289,12 +306,13 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUsuID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblUsuID)
-                    .addComponent(jLabel1))
-                .addGap(26, 26, 26)
+                    .addComponent(jLabel1)
+                    .addComponent(txtLimpaTela))
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUsuNome)
                     .addComponent(txtUsuNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -361,6 +379,11 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
         remover();
     }//GEN-LAST:event_btnUsuExcluirActionPerformed
 
+    private void txtLimpaTelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLimpaTelaActionPerformed
+        //evento que limpa todo o formulário
+        limpaTela();
+    }//GEN-LAST:event_txtLimpaTelaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntUsuAlterar;
@@ -376,6 +399,7 @@ public class TelaCadastroUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblUsuNome;
     private javax.swing.JLabel lblUsuPerfil;
     private javax.swing.JLabel lblUsuSenha;
+    private javax.swing.JButton txtLimpaTela;
     private javax.swing.JFormattedTextField txtUsuFone;
     private javax.swing.JTextField txtUsuID;
     private javax.swing.JTextField txtUsuLogin;

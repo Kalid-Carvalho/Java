@@ -1,16 +1,24 @@
 package br.com.sorveteria.tela;
 
+import br.com.sorveteria.dal.ModuloConexao;
 import java.awt.Desktop;
 import java.text.DateFormat;
 import java.util.Date;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import java.sql.*;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 
 public class TelaPrincipal extends javax.swing.JFrame {
+    
+    Connection conexao = null;
 
     public TelaPrincipal() {
         initComponents();
+        conexao = ModuloConexao.conector();
     }
 
     @SuppressWarnings("unchecked")
@@ -31,8 +39,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         itemVenderSorvete = new javax.swing.JMenuItem();
         itemPagarSorvete = new javax.swing.JMenuItem();
         menRelatorio = new javax.swing.JMenu();
-        menRelatorioSorvete = new javax.swing.JMenuItem();
-        menRelatorioCliente = new javax.swing.JMenuItem();
+        menRelCliente = new javax.swing.JMenu();
+        itemTodosClientes = new javax.swing.JMenuItem();
+        itemClienteIndividual = new javax.swing.JMenuItem();
         menAjuda = new javax.swing.JMenu();
         menAjudaSobre = new javax.swing.JMenuItem();
         menOpcoes = new javax.swing.JMenu();
@@ -120,20 +129,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menRelatorio.setText("Relatório");
 
-        menRelatorioSorvete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.ALT_MASK));
-        menRelatorioSorvete.setText("Sorvete");
-        menRelatorioSorvete.setEnabled(false);
-        menRelatorio.add(menRelatorioSorvete);
+        menRelCliente.setText("Clientes");
+        menRelCliente.setEnabled(false);
 
-        menRelatorioCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, java.awt.event.InputEvent.ALT_MASK));
-        menRelatorioCliente.setText("Cliente");
-        menRelatorioCliente.setEnabled(false);
-        menRelatorioCliente.addActionListener(new java.awt.event.ActionListener() {
+        itemTodosClientes.setText("Todos os Clientes");
+        itemTodosClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menRelatorioClienteActionPerformed(evt);
+                itemTodosClientesActionPerformed(evt);
             }
         });
-        menRelatorio.add(menRelatorioCliente);
+        menRelCliente.add(itemTodosClientes);
+
+        itemClienteIndividual.setText("Cliente Individual");
+        itemClienteIndividual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemClienteIndividualActionPerformed(evt);
+            }
+        });
+        menRelCliente.add(itemClienteIndividual);
+
+        menRelatorio.add(menRelCliente);
 
         menuVendasSorvete.add(menRelatorio);
 
@@ -177,7 +192,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addComponent(lblUsuario)
@@ -196,10 +211,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         DateFormat formatador = DateFormat.getDateInstance(DateFormat.SHORT);
         lblData.setText(formatador.format(data));
     }//GEN-LAST:event_formWindowActivated
-
-    private void menRelatorioClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menRelatorioClienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menRelatorioClienteActionPerformed
 
     private void menOpcoesSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menOpcoesSairActionPerformed
         //Exibe uma caixa de diálogo
@@ -238,6 +249,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaSorv.setVisible(true);
         jDesktopPane1.add(telaSorv);              
     }//GEN-LAST:event_itemCadastrarSorvetesActionPerformed
+
+    private void itemClienteIndividualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemClienteIndividualActionPerformed
+        
+    }//GEN-LAST:event_itemClienteIndividualActionPerformed
+
+    private void itemTodosClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemTodosClientesActionPerformed
+        //Gerando relatório de Clientes
+        int confirma = JOptionPane.showConfirmDialog(null, "Confirma a impressao desse relatório?","Atenção !", JOptionPane.YES_NO_OPTION);
+        if(confirma == JOptionPane.YES_OPTION){
+            //Imprimindo relatório com o framework jasper soft
+            try {
+                //Usando a classe jasperprint para preparar a impreso de um relatório
+                JasperPrint print = JasperFillManager.fillReport("C:/reports/clientes.jasper", null, conexao);
+                //A linha abaixo exite o relatório atraves da classe jasper Viewer
+                JasperViewer.viewReport(print, false);
+                
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }//GEN-LAST:event_itemTodosClientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -280,7 +312,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem ItemCadastroUsuário;
     private javax.swing.JMenuItem itemCadastrarSorvetes;
     private javax.swing.JMenuItem itemCadastroClientes;
+    private javax.swing.JMenuItem itemClienteIndividual;
     private javax.swing.JMenuItem itemPagarSorvete;
+    private javax.swing.JMenuItem itemTodosClientes;
     private javax.swing.JMenuItem itemVenderSorvete;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel lblData;
@@ -293,9 +327,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public static javax.swing.JMenu menModuloUsuario;
     private javax.swing.JMenu menOpcoes;
     private javax.swing.JMenuItem menOpcoesSair;
+    public static javax.swing.JMenu menRelCliente;
     private javax.swing.JMenu menRelatorio;
-    public static javax.swing.JMenuItem menRelatorioCliente;
-    public static javax.swing.JMenuItem menRelatorioSorvete;
     private javax.swing.JMenuBar menuVendasSorvete;
     // End of variables declaration//GEN-END:variables
 }

@@ -14,7 +14,7 @@ public class ModuloConexao {
         //criando variavel que armazena login do banco de dados
         String user = "root";
         //Variavel que armazena senha do banco de dados
-        String password = "root";        
+        String password = "";        
         //Estabelecendo conexão com o banco de dados
         try {
             Class.forName(driver);
@@ -22,7 +22,7 @@ public class ModuloConexao {
             return conexao;
         } catch (Exception e) {
             //Instrução de apoio para mostrar erro que está dando no banco de dados
-            //System.out.println(e);
+            System.out.println(e);
             return null;
         }
     }

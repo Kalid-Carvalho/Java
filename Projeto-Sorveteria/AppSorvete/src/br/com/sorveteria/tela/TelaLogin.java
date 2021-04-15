@@ -32,8 +32,7 @@ public class TelaLogin extends javax.swing.JFrame {
                     //Habilitando módulos que so estaram disponiveis caso o usuário que logar for administrador
                     TelaPrincipal.menModuloClientes.setEnabled(true);
                     TelaPrincipal.menModuloUsuario.setEnabled(true);
-                    TelaPrincipal.menRelatorioCliente.setEnabled(true);
-                    TelaPrincipal.menRelatorioSorvete.setEnabled(true);
+                    TelaPrincipal.menRelCliente.setEnabled(true);
                     //Mostrar nome de usuário 
                     TelaPrincipal.lblUsuario.setText(rs.getString(2));
                     //fechando a tela de login
