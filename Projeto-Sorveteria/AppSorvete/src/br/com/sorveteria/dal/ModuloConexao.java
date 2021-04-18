@@ -1,6 +1,7 @@
 package br.com.sorveteria.dal;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
 public class ModuloConexao {
     // método responsavel por estabelecer a conexão com o banco.

@@ -53,7 +53,7 @@ create table compra_sorvete (
 SELECT
 	C.nome_cliente as Nome,
 	CS.os as OS, 
-    CS.data_compra as Data Venda_venda, 
+    CS.data_compra as Data_Venda, 
     CS.qtd_sorvetes as Quantidade, 
 	CS.situacao as Situação,
     S.descricao as Sabor,
@@ -63,26 +63,10 @@ inner join tb_sorvetes as S on CS.codigo_sorvete = S.codigo_sorvete
 inner join tb_clientes as C on CS.codigo_cliente = C.codigo_cliente;
 
 
-
+-- descrevendo nome das tabelas
 desc tb_clientes;
 desc tb_sorvetes;
 desc compra_sorvete;
-
-
-insert into tb_clientes(nome_cliente, matricula) values('Kalid',0395);
-insert into tb_sorvetes(descricao,preco) values ('Doce de leite',2.00);
-insert into compra_sorvete(quantidade_sorvetes, codigo_cliente, codigo_setor, codigo_sorvete) values(5,1,1,1); 
-
--- o código abaixo trás informações de três tabelas(vai ser usado provavelmente no relatorio)
-select
-C.nome_cliente as Cliente, C.matricula as Matricula, 
-S.nome_setor as Setor, 
-CS.quantidade_sorvetes as Quantidade_Sorvetes_Comprados,
-CS.quantidade_sorvetes*TS.preco as Total
-from compra_sorvete as CS
-inner join tb_clientes as C on C.codigo_cliente = CS.codigo_cliente
-inner join tb_sorvetes as TS on TS.codigo_sorvete = CS.codigo_sorvete
-inner join tb_setor as S on CS.codigo_setor = S.codigo_setor;
 
 -- visualizando as tabelas
 select * from tb_sorvetes;
